@@ -1,0 +1,97 @@
+@startuml rm_model_class_diagram
+
+hide circles
+hide methods
+
+class User {
+
+}
+
+class Order {
+
+}
+
+class Review {
+
+}
+
+class ShippingAddress {
+
+}
+
+class PaymentInformation {
+
+}
+
+class Cart {
+
+}
+
+User "shopper 1" --- "*" Order : has >
+
+User "shopper 1" --- "*" Review : has >
+
+User "shopper 1" --- "*" ShippingAddress : has >
+
+User "shopper 1" --- "*" PaymentInformation : has >
+
+User "shopper 1" --- "1" Cart : has >
+
+
+class ItemDescription {
+
+}
+
+class CartItem {
+
+}
+
+class OrderItem {
+
+}
+
+ItemDescription "item 1" --- "*" Review : has >
+
+ItemDescription "item 1" --- "*" CartItem : has >
+
+ItemDescription "item 1" --- "*" OrderItem : has >
+
+
+Cart "1" --- "*" CartItem : has >
+
+Cart "1" --- "*" ItemDescription
+(Cart, ItemDescription) .. CartItem
+
+
+Order "1" --- "1" PaymentInformation
+
+Order "1" --- "1" ShippingAddress
+
+Order "1" --- "*" OrderItem
+
+Order "1" --- "*" ItemDescription
+(Order, ItemDescription) .. OrderItem
+
+
+class Event {
+
+}
+
+' class WinnersCircle {
+
+' }
+
+' class Fighter {
+
+' }
+
+' Event "" --- "" WinnersCircle
+
+
+
+
+
+
+
+
+@enduml
