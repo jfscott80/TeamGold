@@ -1,0 +1,138 @@
+@startuml model_class_diagram
+
+hide circles
+hide methods
+
+class User {
+    username : string
+    password : string
+    admin : boolean
+    reviews : integer
+}
+
+class PurchaseHistory {
+    quantity: integer
+    competed : boolean
+    purchase_date : datetime
+}
+
+class Fighter {
+    quantity : integer
+    wins : integer
+    losses : integer
+}
+
+class Event {
+    date : datetime
+    location : string
+    game : string
+    approved : boolean
+    completed : boolean
+}
+
+class Cart {
+    quantity : integer
+    subtotal : integer
+    tax : integer
+    total : integer    
+}
+
+class ShippingInformation {
+    gift : boolean
+    different_than_payment_information : boolean
+    street_address : string
+    city : string
+    state : string
+    zip_code : string
+}
+
+Class PaymentInformation {
+    first_name : string
+    last_name : string
+    street_address : string
+    city : string
+    state : string
+    zip_code : string
+    card_number : string
+    ccv_number : string
+    expiration_date : date
+}
+
+class ItemDescription {
+    material : string
+    size : string
+    color : string
+    intelligence : string
+    quantity : integer
+    ' the image is a link. is string the appropriate data type?
+    image : string
+}
+
+class ProductReview {
+    reviewer : string
+    review : text
+}
+
+class WinnersCircle {
+    quantity : integer
+    username_wins : integer
+    username_losses : integer
+    image : string
+}
+
+' ############  This commented out code is the diagram associations that I used for the draft submission
+
+' ' tracks users' inventories
+' User "owners *"--- "golems *" ItemDescription
+' ' (User, ItemDescription) .. Cart
+
+' ' user can compete with purchased golems
+' User "competitor *" --- "game *" Event
+' (User, Event) .. PurchaseHistory
+
+' ' each customer has payment info
+' User "customer 1"---"cards *" PaymentInformation : has >
+
+' ' contestants use golems for events
+' User "contestant *" --- "match *" Event
+' (User, Event) .. ItemDescription
+
+' Event"*" --- "1"WinnersCircle
+' (Event, WinnersCircle) .. ItemDescription
+
+' User "manager 1" --- "competitor *" Fighter
+' (User, Fighter) .. ItemDescription
+
+' ItemDescription "golem *"---"review *" ProductReview
+' (ItemDescription, ProductReview) ... User
+
+' User --- Cart
+' (User, Cart) .. PaymentInformation
+
+' ' User -- ShippingInformation
+
+' User --- Cart
+' (User, Cart) .. ShippingInformation
+
+' ############  End of previous submission
+
+User "1" --- "*" ShippingInformation : has >
+
+User "1" --- "1" PurchaseHistory : has >
+
+User "1" --- "1" Cart : has >
+
+User "1" --- "*" PaymentInformation : has >
+
+' User "" --- "" ProductReview
+
+
+ItemDescription "*" --- "*" ProductReview
+
+ItemDescription "*" --- "*" PurchaseHistory
+
+Event "*" --- "1" WinnersCircle : has <
+(Event, WinnersCircle) .. Fighter : has >
+
+
+@enduml
